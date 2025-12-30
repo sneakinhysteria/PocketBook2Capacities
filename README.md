@@ -123,7 +123,7 @@ This creates `PocketBook2Capacities-1.0.0.dmg` with:
 
 - macOS 14.0 or later
 - PocketBook Cloud account (with a PocketBook e-reader synced to cloud)
-- Capacities account with API access
+- Capacities Pro account (required for API access)
 
 ## Privacy
 
