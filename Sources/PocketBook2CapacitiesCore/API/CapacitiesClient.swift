@@ -105,7 +105,7 @@ public actor CapacitiesClient {
     }
 
     /// Look up content by title
-    func lookup(spaceId: String, searchTerm: String) async throws -> [LookupResult] {
+    public func lookup(spaceId: String, searchTerm: String) async throws -> [LookupResult] {
         let token = try getToken()
 
         let url = URL(string: "\(baseURL)/lookup")!
@@ -275,10 +275,10 @@ struct LookupResponse: Codable {
     let results: [LookupResult]
 }
 
-struct LookupResult: Codable {
-    let id: String
-    let structureId: String
-    let title: String
+public struct LookupResult: Codable {
+    public let id: String
+    public let structureId: String
+    public let title: String
 }
 
 // MARK: - Errors

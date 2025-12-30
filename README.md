@@ -31,7 +31,7 @@ Download the latest DMG from [Releases](../../releases).
 Requires macOS 14.0+ and Swift 5.9+.
 
 ```bash
-git clone https://github.com/yourusername/PocketBook2Capacities.git
+git clone https://github.com/sneakinhysteria/PocketBook2Capacities.git
 cd PocketBook2Capacities
 swift build --disable-sandbox
 ```
@@ -74,7 +74,7 @@ pocketbook2capacities sync --force
    - Merges split highlights (when a highlight spans multiple pages)
    - Sorts by position in book
    - Filters out bookmarks (keeps only text highlights)
-3. Creates/updates a Weblink in Capacities with:
+3. Creates a Weblink in Capacities with:
    - Book title and author
    - All highlights formatted as markdown with page numbers
    - Tags: #book, #pocketbook
@@ -124,6 +124,16 @@ This creates `PocketBook2Capacities-1.0.0.dmg` with:
 - macOS 14.0 or later
 - PocketBook Cloud account (with a PocketBook e-reader synced to cloud)
 - Capacities Pro account (required for API access)
+
+## Known Limitations
+
+Due to current Capacities API restrictions (no update or delete endpoints):
+
+- **Force resync creates duplicates**: Using "Force Full Resync" will create new Weblink objects in Capacities, even if the book was previously synced. You'll need to manually delete the older duplicate in Capacities.
+- **No content updates**: If you delete a synced book in Capacities and want to recreate it, use "Force Full Resync" in Settings → Sync.
+- **Incremental only**: Normal sync only adds new highlights. Existing Weblinks are not modified when you add new highlights to the same book - the new highlights will only appear after a force resync (which creates a duplicate).
+
+We'll improve this once the Capacities API adds update/delete functionality.
 
 ## Privacy
 
