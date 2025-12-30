@@ -139,5 +139,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 ## Acknowledgments
 
 - [obsidian-pocketbook-cloud-highlight-importer](https://github.com/lenalebt/obsidian-pocketbook-cloud-highlight-importer) - Inspiration for this project; Obsidian plugin for PocketBook highlights
-- [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess) - Keychain wrapper
 - [swift-argument-parser](https://github.com/apple/swift-argument-parser) - CLI argument parsing

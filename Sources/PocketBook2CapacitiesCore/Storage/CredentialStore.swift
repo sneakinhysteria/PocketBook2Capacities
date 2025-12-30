@@ -1,5 +1,4 @@
 import Foundation
-import KeychainAccess
 
 /// Secure storage for credentials
 /// Uses file-based storage to avoid Keychain prompts with unsigned apps
@@ -7,10 +6,6 @@ public final class CredentialStore {
     private let configDirectory: URL
     private let credentialsFile: URL
     private var credentials: StoredCredentials
-
-    // For backwards compatibility, also check Keychain
-    private let keychain: Keychain
-    private let serviceName = "com.pocketbook2capacities"
 
     private struct StoredCredentials: Codable {
         var pocketBookRefreshToken: String?
@@ -32,42 +27,13 @@ public final class CredentialStore {
 
         credentialsFile = configDirectory.appendingPathComponent("credentials.json")
 
-        // Initialize keychain for migration
-        keychain = Keychain(service: serviceName)
-
         // Load or create credentials
         if let data = try? Data(contentsOf: credentialsFile),
            let stored = try? JSONDecoder().decode(StoredCredentials.self, from: data) {
             credentials = stored
         } else {
             credentials = StoredCredentials.empty
-            // Try to migrate from Keychain
-            migrateFromKeychain()
         }
-    }
-
-    private func migrateFromKeychain() {
-        // Migrate existing credentials from Keychain (silent fail if not accessible)
-        if let token = try? keychain.get("pocketbook_refresh_token") {
-            credentials.pocketBookRefreshToken = token
-        }
-        if let token = try? keychain.get("pocketbook_access_token") {
-            credentials.pocketBookAccessToken = token
-        }
-        if let expiryStr = try? keychain.get("pocketbook_token_expiry"),
-           let interval = TimeInterval(expiryStr) {
-            credentials.pocketBookTokenExpiry = Date(timeIntervalSince1970: interval)
-        }
-        if let alias = try? keychain.get("pocketbook_shop_alias") {
-            credentials.pocketBookShopAlias = alias
-        }
-        if let token = try? keychain.get("capacities_api_token") {
-            credentials.capacitiesApiToken = token
-        }
-        if let spaceId = try? keychain.get("capacities_space_id") {
-            credentials.capacitiesSpaceId = spaceId
-        }
-        save()
     }
 
     private func save() {
@@ -174,8 +140,6 @@ public final class CredentialStore {
     public func clearAll() {
         credentials = StoredCredentials.empty
         save()
-        // Also clear keychain
-        try? keychain.removeAll()
     }
 
     /// Clear only PocketBook credentials

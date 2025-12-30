@@ -13,15 +13,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
-        .package(url: "https://github.com/kishikawakatsumi/KeychainAccess", from: "4.2.0"),
     ],
     targets: [
         // Core library - shared business logic
         .target(
             name: "PocketBook2CapacitiesCore",
-            dependencies: [
-                .product(name: "KeychainAccess", package: "KeychainAccess"),
-            ]
+            dependencies: []
         ),
         // CLI executable
         .executableTarget(
