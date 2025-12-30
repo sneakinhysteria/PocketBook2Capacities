@@ -19,7 +19,6 @@ class AppState: ObservableObject {
     @AppStorage("autoSyncInterval") var autoSyncInterval: TimeInterval = 3600  // 1 hour
     @AppStorage("showNotifications") var showNotifications = true
 
-    private let credentialStore = CredentialStore()
     private var syncService: SyncService?
     private var autoSyncTimer: Timer?
 
@@ -29,9 +28,10 @@ class AppState: ObservableObject {
     }
 
     func refreshCredentialStatus() {
+        // Create fresh instance to read latest from file
+        let credentialStore = CredentialStore()
         hasPocketBookCredentials = credentialStore.hasPocketBookCredentials
         hasCapacitiesCredentials = credentialStore.hasCapacitiesCredentials
-        // TODO: Fetch space name from Capacities API
     }
 
     func setupAutoSync() {
@@ -56,6 +56,7 @@ class AppState: ObservableObject {
         error = nil
 
         do {
+            let credentialStore = CredentialStore()
             let service = try SyncService(credentialStore: credentialStore)
             let result = try await service.sync(force: force)
             lastSyncResult = result
@@ -81,6 +82,7 @@ class AppState: ObservableObject {
     }
 
     func logout(service: String) {
+        let credentialStore = CredentialStore()
         if service == "pocketbook" {
             credentialStore.clearPocketBook()
         } else if service == "capacities" {
