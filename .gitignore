@@ -1,0 +1,32 @@
+# Build artifacts
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj
+xcuserdata/
+
+# Package manager
+Packages/
+Package.resolved
+
+# Generated files
+*.dmg
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Icon files (generated)
+scripts/AppIcon.iconset/
+
+# IDE
+*.xcworkspace
+.idea/
+*.swp
+*.swo
+*~
+
+# Credentials (should never be committed)
+credentials.json
