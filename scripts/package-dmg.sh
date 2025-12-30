@@ -4,7 +4,7 @@ set -e
 # Configuration
 APP_NAME="PocketBook2Capacities"
 BUNDLE_ID="com.pocketbook2capacities.app"
-VERSION="1.0.0"
+VERSION="1.0.1"
 
 # Paths
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
