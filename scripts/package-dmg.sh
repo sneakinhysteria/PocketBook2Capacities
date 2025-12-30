@@ -57,6 +57,16 @@ else
     echo -e "${YELLOW}Warning: AppIcon.icns not found${NC}"
 fi
 
+# Step 5c: Copy resource bundle
+echo -e "\n${YELLOW}Step 5c: Copying resource bundle...${NC}"
+RESOURCE_BUNDLE="$RELEASE_DIR/PocketBook2Capacities_PocketBook2CapacitiesApp.bundle"
+if [ -d "$RESOURCE_BUNDLE" ]; then
+    cp -R "$RESOURCE_BUNDLE" "$BUNDLE_DIR/Contents/Resources/"
+    echo "Resource bundle copied successfully"
+else
+    echo -e "${YELLOW}Warning: Resource bundle not found${NC}"
+fi
+
 # Step 6: Code signing (optional)
 echo -e "\n${YELLOW}Step 6: Code signing...${NC}"
 DEVELOPER_ID="${DEVELOPER_ID:-}"

@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import PocketBook2CapacitiesCore
 
 struct SettingsView: View {
@@ -136,23 +137,41 @@ struct SyncOptionsTab: View {
 
 struct AboutTab: View {
     var body: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "book.closed.fill")
-                .font(.system(size: 64))
-                .foregroundColor(.accentColor)
-
+        VStack(spacing: 16) {
             Text("PocketBook2Capacities")
                 .font(.title)
 
-            Text("Version 1.0.0")
+            Text("Version 1.0.1")
                 .foregroundColor(.secondary)
 
             Text("Sync your PocketBook Cloud highlights to Capacities")
                 .multilineTextAlignment(.center)
                 .foregroundColor(.secondary)
 
-            Link("View on GitHub", destination: URL(string: "https://github.com")!)
+            Link("View on GitHub", destination: URL(string: "https://github.com/sneakinhysteria/PocketBook2Capacities")!)
+
+            Spacer()
+
+            VStack(spacing: 8) {
+                Text("Brought to you by")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Link(destination: URL(string: "https://from-scratch.net")!) {
+                    if let url = Bundle.module.url(forResource: "from-scratch-logo", withExtension: "png"),
+                       let nsImage = NSImage(contentsOf: url) {
+                        Image(nsImage: nsImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 40)
+                    } else {
+                        Text("From Scratch")
+                            .font(.headline)
+                    }
+                }
+            }
         }
+        .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

@@ -37,6 +37,9 @@ let package = Package(
             dependencies: [
                 "PocketBook2CapacitiesCore",
             ],
+            resources: [
+                .process("Resources")
+            ],
             swiftSettings: [
                 .unsafeFlags(["-parse-as-library"])
             ]
